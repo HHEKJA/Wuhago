@@ -15,7 +15,7 @@ import AboutUs from './components/AboutUs';
 import { translations } from './translations';
 
 // Modal types
-export type ModalType = 'order' | 'demo' | 'specs' | 'login' | 'register' | 'register-driver' | 'forgot-password' | 'settings' | null;
+export type ModalType = 'order' | 'demo' | 'specs' | 'login' | 'register' | 'register-driver' | 'forgot-password' | 'settings' | 'topup' | 'history' | 'add-location' | null;
 
 // Language Context
 type Language = 'en' | 'am';
@@ -90,25 +90,11 @@ const App: React.FC = () => {
   };
 
   // Dashboard Button Handlers
-  const handleSettings = () => {
-    alert("User Settings: \n- Notifications enabled\n- Location tracking active\n- Profile editing coming soon");
-  };
-
-  const handleSupport = () => {
-    openModal('order'); // Reusing order modal for contact options
-  };
-
-  const handleTopUp = () => {
-    alert("Top Up Feature: \nConnect your Telebirr or CBE account to add funds.");
-  };
-
-  const handleHistory = () => {
-    alert("Order History: \nNo previous orders found beyond recent activity.");
-  };
-
-  const handleAddLocation = () => {
-    alert("Add Location: \nMap interface to pin new delivery location would open here.");
-  };
+  const handleSettings = () => openModal('settings');
+  const handleSupport = () => openModal('order'); // Reusing order modal for contact options
+  const handleTopUp = () => openModal('topup');
+  const handleHistory = () => openModal('history');
+  const handleAddLocation = () => openModal('add-location');
 
   const t = translations[language];
 
@@ -191,6 +177,166 @@ const App: React.FC = () => {
               <span className="material-symbols-outlined">chat</span>
             </button>
           </div>
+        </Modal>
+
+        {/* Top Up Modal */}
+        <Modal isOpen={activeModal === 'topup'} onClose={closeModal} title="Wallet Top Up">
+          <div className="space-y-6">
+            <div className="text-center mb-6">
+               <p className="text-dim">Current Balance</p>
+               <h3 className="text-4xl font-bold text-contrast">ETB 450.00</h3>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-contrast uppercase tracking-wider block mb-2">Select Payment Method</label>
+              <div className="grid grid-cols-2 gap-4">
+                <button className="p-4 border border-primary bg-primary/5 rounded-xl flex flex-col items-center justify-center gap-2 transition-all">
+                  <span className="material-symbols-outlined text-primary text-3xl">account_balance_wallet</span>
+                  <span className="font-bold text-sm">Telebirr</span>
+                </button>
+                <button className="p-4 border border-border-line bg-surface rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary/50 transition-all">
+                   <span className="material-symbols-outlined text-dim text-3xl">account_balance</span>
+                   <span className="font-bold text-sm text-dim">CBE Birr</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+               <label className="text-xs font-bold text-contrast uppercase tracking-wider block mb-2">Amount (ETB)</label>
+               <input type="number" placeholder="Enter amount" className="w-full px-4 py-3 bg-surface border border-border-line rounded-xl outline-none focus:border-primary focus:ring-1 focus:ring-primary text-contrast font-bold" />
+               <div className="flex gap-2 mt-2">
+                  <button className="px-3 py-1 bg-surface border border-border-line rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors">100</button>
+                  <button className="px-3 py-1 bg-surface border border-border-line rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors">200</button>
+                  <button className="px-3 py-1 bg-surface border border-border-line rounded-lg text-sm font-medium hover:bg-primary hover:text-white transition-colors">500</button>
+               </div>
+            </div>
+
+            <button className="w-full bg-primary hover:bg-accent text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+              Proceed to Pay
+            </button>
+          </div>
+        </Modal>
+
+        {/* History Modal */}
+        <Modal isOpen={activeModal === 'history'} onClose={closeModal} title="Order History" maxWidth="max-w-2xl">
+          <div className="space-y-4">
+             {/* History Item */}
+             <div className="p-4 border border-border-line rounded-xl flex items-center justify-between hover:bg-surface transition-colors">
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                      <span className="material-symbols-outlined">check</span>
+                   </div>
+                   <div>
+                      <h4 className="font-bold text-contrast">Delivered - 5 Jars</h4>
+                      <p className="text-sm text-dim">Sep 24, 2024 • 10:30 AM</p>
+                   </div>
+                </div>
+                <div className="text-right">
+                   <p className="font-bold text-contrast">ETB 150.00</p>
+                   <button className="text-primary text-sm font-bold hover:underline">Receipt</button>
+                </div>
+             </div>
+
+             <div className="p-4 border border-border-line rounded-xl flex items-center justify-between hover:bg-surface transition-colors">
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                      <span className="material-symbols-outlined">add</span>
+                   </div>
+                   <div>
+                      <h4 className="font-bold text-contrast">Wallet Top Up</h4>
+                      <p className="text-sm text-dim">Sep 20, 2024 • 02:15 PM</p>
+                   </div>
+                </div>
+                <div className="text-right">
+                   <p className="font-bold text-green-600">+ ETB 500.00</p>
+                   <p className="text-sm text-dim">Telebirr</p>
+                </div>
+             </div>
+             
+             <div className="p-4 border border-border-line rounded-xl flex items-center justify-between hover:bg-surface transition-colors opacity-75">
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center">
+                      <span className="material-symbols-outlined">history</span>
+                   </div>
+                   <div>
+                      <h4 className="font-bold text-contrast">Delivered - 10 Jars</h4>
+                      <p className="text-sm text-dim">Sep 15, 2024 • 09:00 AM</p>
+                   </div>
+                </div>
+                <div className="text-right">
+                   <p className="font-bold text-contrast">ETB 300.00</p>
+                   <button className="text-primary text-sm font-bold hover:underline">Receipt</button>
+                </div>
+             </div>
+          </div>
+        </Modal>
+
+        {/* Add Location Modal */}
+        <Modal isOpen={activeModal === 'add-location'} onClose={closeModal} title="Add New Location">
+           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); closeModal(); }}>
+              <div>
+                 <label className="text-xs font-bold text-contrast uppercase tracking-wider block mb-2">Location Name</label>
+                 <input type="text" placeholder="e.g. Grandma's House" className="w-full px-4 py-3 bg-surface border border-border-line rounded-xl outline-none focus:border-primary focus:ring-1 focus:ring-primary text-contrast" />
+              </div>
+              <div>
+                 <label className="text-xs font-bold text-contrast uppercase tracking-wider block mb-2">Address / Digital Address</label>
+                 <div className="flex gap-2">
+                    <input type="text" placeholder="Search on map..." className="flex-1 px-4 py-3 bg-surface border border-border-line rounded-xl outline-none focus:border-primary focus:ring-1 focus:ring-primary text-contrast" />
+                    <button type="button" className="bg-surface border border-border-line hover:bg-primary hover:text-white hover:border-primary px-4 rounded-xl transition-colors">
+                       <span className="material-symbols-outlined">my_location</span>
+                    </button>
+                 </div>
+              </div>
+              <div className="h-32 bg-surface rounded-xl border border-border-line flex items-center justify-center relative overflow-hidden group cursor-pointer">
+                 <div className="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Addis_Ababa_map.png')] bg-cover opacity-50"></div>
+                 <span className="relative z-10 bg-white shadow-lg px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary">map</span>
+                    Pin on Map
+                 </span>
+              </div>
+              <button className="w-full bg-primary hover:bg-accent text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                 Save Location
+              </button>
+           </form>
+        </Modal>
+
+        {/* Settings Modal */}
+        <Modal isOpen={activeModal === 'settings'} onClose={closeModal} title="Settings">
+           <div className="space-y-6">
+              <div className="flex items-center justify-between py-2 border-b border-border-line">
+                 <div>
+                    <h4 className="font-bold text-contrast">Notifications</h4>
+                    <p className="text-sm text-dim">Receive updates about your order</p>
+                 </div>
+                 <div className="w-12 h-6 bg-primary rounded-full relative cursor-pointer">
+                    <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
+                 </div>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border-line">
+                 <div>
+                    <h4 className="font-bold text-contrast">Dark Mode</h4>
+                    <p className="text-sm text-dim">Toggle app theme</p>
+                 </div>
+                 <button onClick={toggleTheme} className="text-primary font-bold text-sm uppercase">
+                    {isDark ? 'Turn Off' : 'Turn On'}
+                 </button>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border-line">
+                 <div>
+                    <h4 className="font-bold text-contrast">Language</h4>
+                    <p className="text-sm text-dim">Change app language</p>
+                 </div>
+                 <button onClick={() => setLanguage(language === 'en' ? 'am' : 'en')} className="text-primary font-bold text-sm uppercase">
+                    {language === 'en' ? 'English' : 'Amharic'}
+                 </button>
+              </div>
+              
+              <div className="pt-4">
+                 <button onClick={() => { closeModal(); setUser(null); }} className="w-full text-red-500 font-bold py-3 rounded-xl hover:bg-red-50 transition-colors">
+                    Log Out
+                 </button>
+              </div>
+           </div>
         </Modal>
 
         <Modal isOpen={activeModal === 'login'} onClose={closeModal} title="" maxWidth="max-w-[380px]">

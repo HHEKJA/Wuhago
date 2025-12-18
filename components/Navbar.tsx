@@ -49,33 +49,37 @@ const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onLogoClick();
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-background/90 backdrop-blur-md border-b border-border-line py-2' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border-line py-2' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <a href="#" className="flex items-center group z-50" onClick={(e) => { e.preventDefault(); onLogoClick(); setIsMobileMenuOpen(false); }}>
-              <div className="grid grid-cols-1 grid-rows-1">
-                <img 
-                  src="https://i.ibb.co/68yM8g7/Logo-2.png" 
-                  alt="Wuhago" 
-                  className={`col-start-1 row-start-1 h-12 w-auto transition-opacity duration-500 ${isDark ? 'opacity-0' : 'opacity-100'}`} 
-                />
-                <img 
-                  src="cap-04.png" 
-                  alt="Wuhago" 
-                  className={`col-start-1 row-start-1 h-12 w-auto transition-opacity duration-500 ${isDark ? 'opacity-100' : 'opacity-0'}`} 
-                />
-              </div>
+            <a 
+              href="/" 
+              className="flex items-center gap-2 group z-50 cursor-pointer" 
+              onClick={handleLogoClick}
+              aria-label="Go to Home"
+            >
+               <img 
+                src="https://i.ibb.co/68yM8g7/Logo-2.png" 
+                alt="Wuhago" 
+                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
             </a>
             
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - Updated Sequence */}
             <div className="hidden md:flex space-x-10 items-center">
+              <button onClick={() => scrollTo('about')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.about}</button>
+              <button onClick={() => scrollTo('how-it-works')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.howItWorks}</button>
               <button onClick={() => scrollTo('segments')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.segments}</button>
               <button onClick={() => scrollTo('sensor')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.sensor}</button>
-              <button onClick={() => scrollTo('how-it-works')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.howItWorks}</button>
-              <button onClick={() => scrollTo('about')} className="text-base font-medium text-dim hover:text-primary transition-colors hover:scale-105 transform duration-200">{t.nav.about}</button>
             </div>
             
             {/* Desktop Actions */}
@@ -116,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <>
                   <button 
                     onClick={onLoginClick}
-                    className="bg-surface/30 backdrop-blur-md border border-border-line/50 text-contrast font-bold px-6 py-2.5 rounded-xl hover:bg-surface/50 hover:border-primary/50 hover:text-primary transition-all duration-300 shadow-sm hover:shadow-primary/10 mr-2"
+                    className="bg-white/30 dark:bg-black/30 backdrop-blur-md border border-border-line/50 text-contrast font-bold px-6 py-2.5 rounded-xl hover:bg-white/50 hover:border-primary/50 hover:text-primary transition-all duration-300 shadow-sm hover:shadow-primary/10 mr-2"
                   >
                     {t.nav.login}
                   </button>
@@ -182,10 +186,10 @@ const Navbar: React.FC<NavbarProps> = ({
 
             {/* Mobile Links */}
             <div className="flex flex-col space-y-2">
+              <button onClick={() => scrollTo('about')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.about}</button>
+              <button onClick={() => scrollTo('how-it-works')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.howItWorks}</button>
               <button onClick={() => scrollTo('segments')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.segments}</button>
               <button onClick={() => scrollTo('sensor')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.sensor}</button>
-              <button onClick={() => scrollTo('how-it-works')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.howItWorks}</button>
-              <button onClick={() => scrollTo('about')} className="text-2xl font-display font-bold text-contrast py-3 text-left border-b border-border-line/50 hover:text-primary transition-colors">{t.nav.about}</button>
             </div>
 
             <div className="flex-1"></div>
