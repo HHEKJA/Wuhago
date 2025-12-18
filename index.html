@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wuhago - Tap. Track. Go.</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet" />
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#37B9C7", // Maximum Blue Green
+              accent: "#8BE8E5",  // Lighter Teal/Cyan
+              midnight: "#09575B", // Midnight Green (Eagle Green)
+              // Semantic Colors mapped to CSS Variables
+              background: "var(--bg-main)",
+              surface: "var(--bg-surface)",
+              contrast: "var(--text-main)",
+              dim: "var(--text-muted)",
+              "border-line": "var(--border-color)",
+              "glass-bg": "var(--bg-glass)",
+            },
+            fontFamily: {
+              display: ['"Inter"', '"Noto Sans Ethiopic"', 'sans-serif'],
+              sans: ['"Inter"', '"Noto Sans Ethiopic"', 'sans-serif'],
+            },
+            backgroundImage: {
+              'hero-glow': "var(--hero-glow)",
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-sm': 'float-sm 3s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'spin-slow': 'spin 8s linear infinite',
+              'blob': 'blob 20s infinite',
+              'ripple': 'ripple 3s cubic-bezier(0, 0.2, 0.8, 1) infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              'float-sm': {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-5px)' },
+              },
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" }
+              },
+              ripple: {
+                '0%': { transform: 'scale(1)', opacity: '0.4' },
+                '100%': { transform: 'scale(2.5)', opacity: '0' },
+              }
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --bg-main: #FFFFFF;
+        --bg-surface: #F8FAFC; /* Slate 50 */
+        --bg-glass: rgba(255, 255, 255, 0.7);
+        --text-main: #0F172A; /* Slate 900 */
+        --text-muted: #64748B; /* Slate 500 */
+        --border-color: #E2E8F0; /* Slate 200 */
+        --hero-glow: radial-gradient(circle at 50% 0%, rgba(55, 185, 199, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+        --grid-color: rgba(0, 0, 0, 0.03);
+      }
+
+      .dark {
+        --bg-main: #050B19;
+        --bg-surface: #0F1C36;
+        --bg-glass: rgba(15, 28, 54, 0.7);
+        --text-main: #FFFFFF;
+        --text-muted: #94A3B8; /* Slate 400 */
+        --border-color: rgba(255, 255, 255, 0.1);
+        --hero-glow: radial-gradient(circle at 50% 0%, rgba(55, 185, 199, 0.25) 0%, rgba(5, 11, 25, 0) 70%);
+        --grid-color: rgba(255, 255, 255, 0.03);
+      }
+
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .grid-bg {
+        background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      .glass-card {
+        background: var(--bg-glass);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+      }
+      .text-glow {
+        text-shadow: 0 0 20px rgba(55, 185, 199, 0.3);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
